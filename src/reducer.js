@@ -19,9 +19,13 @@ const reducer = (state, action) => {
       const index = state.basket.findIndex(
         (basketItem) => basketItem.id === action.id
       );
+      //   we are creating new basket and adding
+      //   all elements by using spread operator (...)
       let newBasket = [...state.basket];
 
       if (index >= 0) {
+        //   we are doing it to cut only 1 element from basket which's index is
+        // equal to clicked one
         newBasket.splice(index, 1);
       } else {
         console.warn(
