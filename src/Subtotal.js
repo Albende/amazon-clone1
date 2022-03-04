@@ -3,8 +3,10 @@ import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "./StateProvider";
 import { getBasketTotal } from "./reducer";
+import { useHistory } from "react-router-dom";
 
 function Subtotal() {
+  const history = useHistory();
   const [{ basket }, dispatch] = useStateValue();
   return (
     <div className="subtotal">
@@ -26,8 +28,19 @@ function Subtotal() {
         thousandSeparator={true}
         prefix={"$"}
       />
-
-      <button>Proceed to Checkout</button>
+      {/* it is better use to history.push instead of Link to
+      if we want to push the user somewhere programatically 
+      using history.push is better and it will keep the 
+      styling of button while we are redirecting user to payment page here */}
+      <button
+        onClick={(e) =>
+          basket.length != 0
+            ? history.push("/payment")
+            : alert("Basket can not be empty")
+        }
+      >
+        Proceed to Checkout
+      </button>
     </div>
   );
 }

@@ -13,6 +13,14 @@ import Checkout from "./Checkout";
 import Login from "./Login";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
+import Orders from "./Orders";
+import Payment from "./Payment";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const promise = loadStripe(
+  "pk_test_51KZN9vDVMnrQs52vRPZX08vKW7HcvGJiq4dLydXZVldQjSzXsgJ9tS1b1WA81G14Vvk23EF6nEZmaIFD2mqVZQRE00pJ3FIVdf"
+);
 
 function App() {
   const [{}, dispatch] = useStateValue();
@@ -21,7 +29,8 @@ function App() {
   // for example login, signup, logout and so on
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      console.log("USER is >>> ", authUser);
+      // console.log("USER is >>> ", authUser); ->>> using it to debug user
+      //authetication to see if it was successful or not
       if (authUser) {
         //to check if somebody logged in
         dispatch({
@@ -60,6 +69,16 @@ function App() {
           <Route path="/checkout">
             <Header />
             <Checkout />
+          </Route>
+          <Route path="/payment">
+            <Header />
+            <Elements stripe={promise}>
+              <Payment />
+            </Elements>
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
           </Route>
           {/* we have to use our main router at the bottom
         because if we use it at the top

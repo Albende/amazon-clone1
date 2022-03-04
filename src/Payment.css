@@ -1,0 +1,33 @@
+.payment {
+  background-color: white;
+}
+.payment__container > h1 {
+  /* butun textleri merkeze getirecek */
+  text-align: center;
+  padding: 10px;
+  font-weight: 400;
+  background-color: rgb(234, 237, 237);
+  border-bottom: 1px solid lightgray;
+}
+
+.payment__container > h1 a {
+  /* without it there is gonna be underscore under our "items" but
+    now it will not happen because we are declaring text decoration to
+    none */
+  text-decoration: none;
+}
+.payment__section {
+  display: flex;
+  padding: 10px;
+  margin: 0 20px;
+  border-bottom: 1px solid lightgray;
+}
+.payment__title {
+  /* it means that title will take only 20% of container */
+  flex: 0.2;
+}
+.payment__address,
+.payment__items,
+.payment__details {
+  flex: 0.8;
+}

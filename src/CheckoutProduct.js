@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./CheckoutProduct.css";
 import { useStateValue } from "./StateProvider";
+import { useHistory } from "react-router-dom";
 
 function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
   const [{ basket }, dispatch] = useStateValue();
