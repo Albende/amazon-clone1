@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 function Subtotal() {
   const history = useHistory();
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
   return (
     <div className="subtotal">
       <CurrencyFormat
@@ -32,15 +32,21 @@ function Subtotal() {
       if we want to push the user somewhere programatically 
       using history.push is better and it will keep the 
       styling of button while we are redirecting user to payment page here */}
-      <button
-        onClick={(e) =>
-          basket.length != 0
-            ? history.push("/payment")
-            : alert("Basket can not be empty")
-        }
-      >
-        Proceed to Checkout
-      </button>
+      {user == null ? (
+        <button onClick={(e) => alert("Please sign in to Proceed")}>
+          Proceed to Checkout
+        </button>
+      ) : (
+        <button
+          onClick={(e) =>
+            basket.length != 0
+              ? history.push("/payment")
+              : alert("Basket can not be empty")
+          }
+        >
+          Proceed to Checkout
+        </button>
+      )}
     </div>
   );
 }

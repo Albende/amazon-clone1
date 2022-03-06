@@ -3,8 +3,15 @@ import "./Checkout.css";
 import Subtotal from "./Subtotal";
 import { useStateValue } from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
+import { useHistory } from "react-router-dom";
 
 function Checkout() {
+  const history = useHistory();
+
+  const routeChange = () => {
+    let path = `/login`;
+    history.push(path);
+  };
   const [{ basket, user }, dispatch] = useStateValue();
 
   return (
@@ -27,17 +34,28 @@ function Checkout() {
           not gonna give any error but if it is in cloud. always use ? to 
           prevent errors. it will automatically handle error  */}
           <h3>Hello, {user?.email}</h3>
-          <h2 className="checkout__title">Your shopping Basket</h2>
+          {basket.length != 0 ? (
+            <h2 className="checkout__title">Your shopping basket</h2>
+          ) : (
+            <h2 className="checkout__title">Your basket is empty</h2>
+          )}
 
-          {basket.map((item) => (
-            <CheckoutProduct
-              id={item.id}
-              title={item.title}
-              image={item.image}
-              price={item.price}
-              rating={item.rating}
-            />
-          ))}
+          {basket.length == 0 && user == null ? (
+            <button className="checkout__signUpButton" onClick={routeChange}>
+              {" "}
+              <h3>Please Sign in or Sign Up</h3>
+            </button>
+          ) : (
+            basket.map((item) => (
+              <CheckoutProduct
+                id={item.id}
+                title={item.title}
+                image={item.image}
+                price={item.price}
+                rating={item.rating}
+              />
+            ))
+          )}
         </div>
       </div>
 

@@ -13,3 +13,11 @@
   padding: 10px;
   border-bottom: 1px solid lightgray;
 }
+.checkout__signUpButton {
+  display: flex;
+  flex: 0.8;
+  padding: 10;
+  align-items: center;
+  margin-left: 400px;
+  margin-top: 10px;
+}
